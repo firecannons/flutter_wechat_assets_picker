@@ -1276,44 +1276,49 @@ class DefaultAssetPickerBuilderDelegate
           return SliverToBoxAdapter(
             child: Column(
               children: [
-                DragSelectGridView(
-                  itemBuilder: (BuildContext context, int index, bool selected) {
-                    Widget c = MergeSemantics(
-                      child: Directionality(
-                        textDirection: textDirection,
-                        child: assetGridItemBuilder(
-                          context,
-                          index,
-                          assets,
-                          specialItem: specialItem,
+                //DragSelectHolder(
+                  // https://stackoverflow.com/questions/52000130/flutter-get-local-position-of-gesture-detector
+                  // https://www.google.com/search?q=geusterdetector+flutter+local+position+is+relative+to+grid+not+screen&oq=geusterdetector+flutter+local+position+is+relative+to+grid+not+screen&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCTE4MTIxajBqMagCALACAA&sourceid=chrome&ie=UTF-8
+                  dragSelectView: 
+                    DragSelectGridView(
+                    itemBuilder: (BuildContext context, int index, bool selected) {
+                      Widget c = MergeSemantics(
+                        child: Directionality(
+                          textDirection: textDirection,
+                          child: assetGridItemBuilder(
+                            context,
+                            index,
+                            assets,
+                            specialItem: specialItem,
+                          ),
                         ),
-                      ),
-                    );
-                    return SelectableItem(
-                      index: index,
-                      color: Colors.blue,
-                      selected: selected,
-                      child: c,
-                      asset: assets[index],
-                      parent: this,
-                      context: context
-                    );
-                  },
-                  itemCount: assetsGridItemCount(
-                    context: context,
-                    assets: assets,
-                    placeholderCount: placeholderCount,
-                    specialItem: specialItem,
-                  ),
-                  shrinkWrap: true,
-                  // Explicitly disable semantic indexes for custom usage.
-                  addSemanticIndexes: false,
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 150,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                  ),
-                )
+                      );
+                      return SelectableItem(
+                        index: index,
+                        color: Colors.blue,
+                        selected: selected,
+                        child: c,
+                        asset: assets[index],
+                        parent: this,
+                        context: context
+                      );
+                    },
+                    itemCount: assetsGridItemCount(
+                      context: context,
+                      assets: assets,
+                      placeholderCount: placeholderCount,
+                      specialItem: specialItem,
+                    ),
+                    shrinkWrap: true,
+                    // Explicitly disable semantic indexes for custom usage.
+                    addSemanticIndexes: false,
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 150,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                    ),
+                  )
+                //)
               ]
             )
           );
@@ -1387,6 +1392,34 @@ class DefaultAssetPickerBuilderDelegate
       },
     );
   }
+}
+
+
+
+/*
+class DragSelectHolder extends StatelessWidget {
+
+  DragSelectGridView({
+    required dragSelectView
+  })
+
+ @override
+ Widget build(BuildContext context) {
+   return dragSelectView;
+ }
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
 
   /// There are several conditions within this builder:
   ///  * Return item builder according to the asset's type.

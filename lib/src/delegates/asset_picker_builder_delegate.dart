@@ -2739,7 +2739,7 @@ class _SelectableItemState22 extends State<SelectableItem22>
           style: TextStyle(fontSize: 18, color: Colors.white),
         ),
       ),
-    );
+    ); 
   }
 
   Color? calculateColor() {
